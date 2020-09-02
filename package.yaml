@@ -1,0 +1,28 @@
+name:                cps
+version:             0.1.0.0
+github:              "shterrett/cps"
+license:             MIT
+author:              "Stuart H Terrett"
+maintainer:          "shterrett@gmail.com"
+copyright:           "2020 Stuart H Terrett"
+
+extra-source-files:
+- README.md
+description:         Please see the README on GitHub at <https://github.com/githubuser/cps#readme>
+
+dependencies:
+- base >= 4.7 && < 5
+
+library:
+  source-dirs: src
+
+tests:
+  cps-test:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - cps
