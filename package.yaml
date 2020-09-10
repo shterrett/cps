@@ -12,6 +12,10 @@ description:         Please see the README on GitHub at <https://github.com/gith
 
 dependencies:
 - base >= 4.7 && < 5
+- call-stack
+- containers
+- mtl
+- transformers
 
 library:
   source-dirs: src
@@ -26,3 +30,5 @@ tests:
     - -with-rtsopts=-N
     dependencies:
     - cps
+    - hspec
+    - hspec-discover

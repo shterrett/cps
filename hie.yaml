@@ -1,0 +1,4 @@
+cradle:
+  stack:
+    component: "cps:lib"
+    component: "cps:cps-test"
