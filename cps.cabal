@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 08ca702f11d1903bff69472a13298956a4b3764a5350c43eb9f4222b82c06537
+-- hash: 247b6675a13a375eae413a6c1a327c27db623da9fe0de69033993a35f26deabf
 
 name:           cps
 version:        0.1.0.0
@@ -26,6 +26,7 @@ source-repository head
 
 library
   exposed-modules:
+      Eval
       Lang
   other-modules:
       Paths_cps
@@ -43,7 +44,8 @@ test-suite cps-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
-      LangSpec
+      Base
+      EvalSpec
       Paths_cps
   hs-source-dirs:
       test
