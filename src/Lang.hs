@@ -40,8 +40,10 @@ pushEnv = do
   (Env ms) <- get
   put $ Env $ NE.cons Map.empty ms
 
-popEnv :: Env -> Env
-popEnv (Env base@(_ :| ms)) = Env $ maybe base id $ NE.nonEmpty ms
+popEnv :: (MonadState Env m) => m ()
+popEnv = do
+  Env (_ :| ms) <- get
+  put $ maybe (Env $ mempty :| []) Env $ NE.nonEmpty ms
 
 insertEnv :: (MonadState Env m) => String -> Val -> m ()
 insertEnv var val = modify $ insertEnv' var val
