@@ -57,13 +57,15 @@ eval e@(CallcExp f arg) = do
     err -> typeError "function" e err
 eval e@(LetRecExp name vars fnBody letBody) = do
   fnExp <- eval $ curryE vars fnBody
-  case fnExp of
-    FnVal v body _ -> do
-      newEnv <- pushEnv >> get
-      let closure = insertEnv' name (FnVal v body closure) newEnv
-      put closure
-      eval letBody
+  (v, body) <- case fnExp of
+    FnVal v body _ -> pure (v, body)
     err -> typeError "letrec" e err
+  newEnv <- pushEnv >> get
+  let closure = insertEnv' name (FnVal v body closure) newEnv
+  put closure
+  res <- eval letBody
+  put newEnv >> popEnv
+  pure res
 
 typeError :: (MonadError String m, Show e, Show err) => String -> e -> err -> m a
 typeError ty e err =
