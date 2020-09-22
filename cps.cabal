@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 3a0a6762f76b501905d393e01b6235f7e4149d00b90c0222a42456d601191127
+-- hash: 229a0baa3f7c5ca0353f93ceb3b2d4bc2c18e7580af37cf0753e74ecd139430a
 
 name:           cps
 version:        0.1.0.0
@@ -28,6 +28,7 @@ library
   exposed-modules:
       Cps
       CpsM
+      CpsTransform
       Eval
       Lang
   other-modules:
