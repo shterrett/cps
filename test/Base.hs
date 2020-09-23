@@ -4,7 +4,13 @@ import Lang
 import Data.List.NonEmpty (NonEmpty((:|)))
 import Test.Hspec (Spec, it, shouldBe, describe)
 
-langSpec :: String -> (Exp -> Either String Val) -> Spec
+langSpec ::
+  ( Show a
+  , Eq a
+  )
+  => String
+  -> (Exp -> Either String (Val a))
+  -> Spec
 langSpec desc eval = do
   describe desc $ do
     describe "constant exps" $ do

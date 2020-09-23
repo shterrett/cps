@@ -10,7 +10,7 @@ import Data.CallStack (HasCallStack)
 import Data.Foldable (foldl')
 import Data.List.NonEmpty (NonEmpty(..))
 
-eval :: (MonadError String m, MonadState Env m, HasCallStack) => Exp -> m Val
+eval :: (MonadError String m, MonadState (Env Exp) m, HasCallStack) => Exp -> m (Val Exp)
 eval (IntExp i) = pure $ IntVal i
 eval (BoolExp b) = pure $ BoolVal b
 eval e@(IfExp tst t f) = do
@@ -77,5 +77,5 @@ curryE vs body = foldr ($) body $ FncExp <$> vs
 uncurryE :: Exp -> NonEmpty Exp -> Exp
 uncurryE fn args = foldl' CallcExp fn args
 
-runEval :: Exp -> Either String Val
+runEval :: Exp -> Either String (Val Exp)
 runEval = flip evalState (Env $ mempty :| []) . runExceptT . eval

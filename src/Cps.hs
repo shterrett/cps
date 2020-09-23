@@ -12,11 +12,11 @@ import Data.List.NonEmpty (NonEmpty((:|)))
 
 eval ::
   ( MonadError String m
-  , MonadState Env m
+  , MonadState (Env Exp) m
   , HasCallStack
   )
   => Exp
-  -> (Val -> m r)
+  -> (Val Exp -> m r)
   -> m r
 eval (IntExp i) k = k $ IntVal i
 eval (BoolExp i) k = k $ BoolVal i
@@ -72,5 +72,5 @@ eval (LetRecExp name args fnBody letBody) k = do
         k res
     err -> typeError "function" fnExp err
 
-runEval :: Exp -> Either String Val
+runEval :: Exp -> Either String (Val Exp)
 runEval = flip evalState (Env $ mempty :| []) . runExceptT . flip eval pure

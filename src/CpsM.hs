@@ -16,12 +16,12 @@ import qualified Eval as Eval
 eval ::
   ( MonadCont m
   , MonadError String m
-  , MonadState Env m
+  , MonadState (Env Exp) m
   , HasCallStack
   )
   => Exp
-  -> m Val
+  -> m (Val Exp)
 eval = Eval.eval
 
-runEval :: Exp -> Either String Val
+runEval :: Exp -> Either String (Val Exp)
 runEval = flip evalState (Env $ mempty :| []) . flip runContT pure . runExceptT . eval
